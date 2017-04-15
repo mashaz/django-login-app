@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>登录</title>
+	<!-- jQuery -->
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<!-- Bootstrap -->
+	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+	<script type="text/javascript">
+
+	function check(x)
+	{
+		var passwd1 = $('#inputPassword').val();
+		var passwd2 = $('#inputPassword1').val();
+		$("#passwd-check").empty();
+		if (passwd1!=passwd2) 
+		{
+
+			$("#passwd-check").append("<span style=\"color: red;\">两次密码不一致</span>")
+		}
+		if (passwd1==passwd2) 
+		{
+			$("#reg-button").empty();
+			$("#reg-button").append("<button type=\"submit\" id=\"submit-button\"class=\"btn btn-default\"  >Register</button>");
+		}
+	}
+</script>>
+</head>
+<style type="text/css">
+.content{
+	text-align: center;
+	display: table;
+}
+
+.center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+
+	padding:10px;
+	background-color: #E0FFFF;
+	border: solid; 
+
+}
+#submit-button{
+	float: right;
+}
+</style>
+<body>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	
+
+	<div class="center-block">
+		<a href="/magnet">返回主页</a>
+		<br><br>
+		
+		<form  method='post' action="/account/register" class="form-horizontal">
+			{% csrf_token %}  
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="text"  name="username" class="form-control" id="inputUsername" placeholder="Username">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="text"  name="email" class="form-control" id="inputEmail" placeholder="E-mail">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" onChange="check(this.id)">
+					<input type="password" name="password1" class="form-control" id="inputPassword1" placeholder="Password Again" onChange="check(this.id)">
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<div class="col-sm-10">					
+					{% if exist_username %}
+					<span style="color: red;">用户名已存在</span>
+					{% endif %}
+					{% if exist_email %}
+					<span style="color: red;">email已被注册</span>
+					{% endif %}
+					<div id="passwd-check">
+						
+					</div>
+					<div id="reg-button">
+						<button type="submit" id="submit-button"class="btn btn-default" disabled="true" >Register</button>
+					</div>
+					
+				</div>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>

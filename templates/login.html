@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>登录</title>
+	<!-- jQuery -->
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+	<!-- Bootstrap -->
+	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+</head>
+<style type="text/css">
+.content{
+	text-align: center;
+	display: table;
+}
+
+.center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 400px;
+
+	padding:10px;
+	background-color: #E0FFFF;
+	border: solid; 
+
+}
+#submit-button{
+	float: right;
+}
+</style>
+<body>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	
+
+	<div class="center-block">
+		<a href="/magnet">返回主页</a>
+		{% if register_flag %}
+		<span>欢迎您 {{ register_username }}，请登陆！</span>
+		{% endif %}
+		<br><br>
+		{% if username %}
+		<h1>{{ username }} login</h1>
+
+		{% else %}
+
+		<form  method='post' action="/account/login" class="form-horizontal">
+			{% csrf_token %}  
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="text"  name="username" class="form-control" id="inputUsername" placeholder="username">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10">
+					<input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10">
+					<div class="checkbox">
+						<label>
+							<input type="checkbox"> Remember me
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-10">					
+					<a href="/account/register">Register</a>
+					{% if invid %}
+					<span style="color: red;">无效的用户名或密码</span>
+					{% endif%}
+					<button type="submit" id="submit-button"class="btn btn-default">Log in</button>
+				</div>
+			</div>
+		</form>
+		{% endif %}
+	</div>
+
+</body>
+</html>
