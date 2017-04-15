@@ -1,6 +1,6 @@
 # a django login app 
 
-### urls.py 添加
+### 根urls.py 添加
 ```python
 url(r'^account/',include('login.urls')),
 ```
@@ -26,3 +26,8 @@ TEMPLATES = [
 ]
 
 ```
+
+url格式 
+* /account/login
+* /account/logout
+* /account/register

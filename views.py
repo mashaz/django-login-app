@@ -23,12 +23,12 @@ def login(request):
             user = User.objects.filter(username__exact = username,password__exact = password)
             if user:
                 request.session['username'] = username
-                return HttpResponseRedirect('/magnet')
+                return HttpResponseRedirect('/magnet')  # 登录成功返回页面
             else:
                 user_by_email = User.objects.filter(email__exact = username,password__exact = password)
                 if user_by_email:
                     request.session['username'] = user_by_email[0].username
-                    return HttpResponseRedirect('/magnet')
+                    return HttpResponseRedirect('/magnet') # 登录成功返回页面
                 else:
                     context = {}
                     context['invid'] = 'invid'
