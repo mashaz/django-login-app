@@ -31,3 +31,7 @@ url格式
 * /account/login
 * /account/logout
 * /account/register
+* /account/info
+
+user表
+id username password email

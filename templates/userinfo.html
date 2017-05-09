@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>UserInfo</title>
+<link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../static/js/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+<!----webfonts---->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!-- Global CSS for the page and tiles -->
+<link rel="stylesheet" href="../static/css/main.css">
+<style>
+
+.user-profile{
+	margin: auto; /*bootstrap居中！*/
+  margin-top: 3em;
+  padding: 1em;
+	width: 20em;
+	display: block;
+}
+</style>
+
+</head>
+<body>
+  {% include "nav.html" %}
+
+
+
+	<div class="content">
+		<div class="user-profile">
+      <h4 style="text-align: center;">个人资料</h4>
+      <hr>
+		<form>
+    <fieldset class="form-group">
+    <label for="exampleInputEmail1"> 用户名</label>
+    <input style="display:none"><!-- for disable autocomplete on chrome -->
+    <input type="email" class="form-control"  placeholder="" autocomplete="off">
+    <small class="text-muted">你的用户名</small>
+  </fieldset>
+  <fieldset class="form-group">
+    <label for="exampleInputEmail1" > 邮箱</label>
+    <input style="display:none"><!-- for disable autocomplete on chrome -->
+    <input type="email" class="form-control"  placeholder="Enter email" autocomplete="off">
+    <small class="text-muted">你的邮箱</small>
+  </fieldset>
+  <fieldset class="form-group">
+  <h4 style="text-align: center;">更改密码</h4>
+  <hr>
+    <label for="exampleInputPassword1">输入密码</label>
+    <input style="display:none"><!-- for disable autocomplete on chrome -->
+    <input type="password" class="form-control"  placeholder="Password" autocomplete="off">
+  </fieldset>
+    <fieldset class="form-group">
+
+    <label for="exampleInputPassword1">密码</label>
+    <input style="display:none"><!-- for disable autocomplete on chrome -->
+    <input type="password" class="form-control"  placeholder="Password" autocomplete="off">
+  </fieldset>
+ 
+ <h4 style="text-align: center;">更改头像</h4>
+  <hr>
+  <fieldset class="form-group">
+    
+    <input type="file" class="form-control-file" id="exampleInputFile" >
+    <small class="text-muted">你的头像</small>
+  </fieldset>
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+	</div>
+	</div>
+
+</body>
+</html>
+

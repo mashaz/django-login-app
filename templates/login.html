@@ -1,91 +1,90 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>登录</title>
-	<!-- jQuery -->
-	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-	<!-- Bootstrap -->
-	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+<title>Login</title>
 
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-</head>
-<style type="text/css">
-.content{
-	text-align: center;
-	display: table;
-}
+<link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../static/js/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
 
-.center-block {
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="../static/css/main.css">
+<style>
+
+.user-profile{
+	margin: auto; /*bootstrap居中！*/
+  margin-top: 3em;
+  padding: 1em;
+	width: 20em;
 	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 400px;
-
-	padding:10px;
-	background-color: #E0FFFF;
-	border: solid; 
-
-}
-#submit-button{
-	float: right;
 }
 </style>
+
+</head>
 <body>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+  {% include "nav.html" %}
 
-	
 
-	<div class="center-block">
-		<a href="/magnet">返回主页</a>
-		{% if register_flag %}
-		<span>欢迎您 {{ register_username }}，请登陆！</span>
-		{% endif %}
-		<br><br>
-		{% if username %}
-		<h1>{{ username }} login</h1>
-
-		{% else %}
-
+	<div class="content">
+		<div class="user-profile">
+      <h2 style="text-align: center;">用户登入</h2>
+      <hr>
 		<form  method='post' action="/account/login" class="form-horizontal">
-			{% csrf_token %}  
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input type="text"  name="username" class="form-control" id="inputUsername" placeholder="username">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input type="password" name="password" class="form-control" id="inputPassword3" placeholder="Password">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-10">
-					<div class="checkbox">
-						<label>
-							<input type="checkbox"> Remember me
-						</label>
-					</div>
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-10">					
-					<a href="/account/register">Register</a>
-					{% if invid %}
-					<span style="color: red;">无效的用户名或密码</span>
-					{% endif%}
-					<button type="submit" id="submit-button"class="btn btn-default">Log in</button>
-				</div>
-			</div>
-		</form>
-		{% endif %}
+      {% csrf_token %} 
+    <fieldset class="form-group">
+    <label for="exampleInputEmail1"> 用户名</label>
+   
+    <input type="text" name="username" class="form-control"  placeholder="Username" >
+    <small class="text-muted"></small>
+  </fieldset>
+  
+  <fieldset class="form-group">
+
+    <label for="exampleInputPassword1">输入密码</label>
+    <input type="password" class="form-control" name="password" placeholder="Password" >
+ 
+ 
+  <br><br>
+  <input type="button" onClick="location.href='/account/register'" class="btn btn-info" value="Register"></input>
+  <button type="submit" class="btn btn-primary" style="float: right;" >Login</button>
+</form>
+<br><br>
+  <div class="alert_info">
+
+    {% if register_flag %}
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">注册成功!</h4>
+      <p>用户名:{{ register_username }}</p>
+      <p class="mb-0">请登入！</p>
+    </div>
+    {% endif %}
+
+    {% if post_flag %}
+    <div class="alert alert-warning" role="alert">
+      <h3 class="alert-heading">请先登入</h4> 
+    </div>
+    {% endif %}
+
+    <br><br>
+    {% if username %}
+    <h1>{{ username }} login</h1>
+
+    {% endif %}
+
+
+    {% if invid %}
+          <div class="alert alert-danger" role="alert">
+            <strong>错误！</strong> 无效的用户名或密码
+          </div>
+    {% endif%}
+  </div>
+	</div>
 	</div>
 
 </body>
 </html>
+

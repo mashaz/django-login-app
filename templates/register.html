@@ -1,108 +1,106 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>登录</title>
-	<!-- jQuery -->
-	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-	<!-- Bootstrap -->
-	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+  <title>Register</title>
+  <link href="../static/css/style.css" rel='stylesheet' type='text/css' />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="../static/js/jquery.min.js"></script>
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap.css" rel="stylesheet">
+  <script src="https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/js/bootstrap.js"></script>
+  <!----webfonts---->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <!-- Global CSS for the page and tiles -->
+  <link rel="stylesheet" href="../static/css/main.css">
+  <script src="https://cdn.bootcss.com/jquery-validate/1.16.0/jquery.validate.js"></script>
+  <script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
+  <script>
 
-	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-	<script type="text/javascript">
+  $().ready(function() {
+    $("#commentForm").validate();
+  });
+  </script>
 
-	function check(x)
-	{
-		var passwd1 = $('#inputPassword').val();
-		var passwd2 = $('#inputPassword1').val();
-		$("#passwd-check").empty();
-		if (passwd1!=passwd2) 
-		{
 
-			$("#passwd-check").append("<span style=\"color: red;\">两次密码不一致</span>")
-		}
-		if (passwd1==passwd2) 
-		{
-			$("#reg-button").empty();
-			$("#reg-button").append("<button type=\"submit\" id=\"submit-button\"class=\"btn btn-default\"  >Register</button>");
-		}
-	}
-</script>>
+
+  <style>
+
+  .user-profile{
+   margin: auto; /*bootstrap居中！*/
+   margin-top: 3em;
+   padding: 1em;
+   width: 20em;
+   display: block;
+ }
+ </style>
+
 </head>
-<style type="text/css">
-.content{
-	text-align: center;
-	display: table;
-}
-
-.center-block {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 400px;
-
-	padding:10px;
-	background-color: #E0FFFF;
-	border: solid; 
-
-}
-#submit-button{
-	float: right;
-}
-</style>
 <body>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
+  {% include "nav.html" %}
 
-	
 
-	<div class="center-block">
-		<a href="/magnet">返回主页</a>
-		<br><br>
-		
-		<form  method='post' action="/account/register" class="form-horizontal">
-			{% csrf_token %}  
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input type="text"  name="username" class="form-control" id="inputUsername" placeholder="Username">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input type="text"  name="email" class="form-control" id="inputEmail" placeholder="E-mail">
-				</div>
-			</div>
-			<div class="form-group">
-				<div class="col-sm-10">
-					<input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" onChange="check(this.id)">
-					<input type="password" name="password1" class="form-control" id="inputPassword1" placeholder="Password Again" onChange="check(this.id)">
-				</div>
-			</div>
-			
-			<div class="form-group">
-				<div class="col-sm-10">					
-					{% if exist_username %}
-					<span style="color: red;">用户名已存在</span>
-					{% endif %}
-					{% if exist_email %}
-					<span style="color: red;">email已被注册</span>
-					{% endif %}
-					<div id="passwd-check">
-						
-					</div>
-					<div id="reg-button">
-						<button type="submit" id="submit-button"class="btn btn-default" disabled="true" >Register</button>
-					</div>
-					
-				</div>
-			</div>
-		</form>
-	</div>
+
+  <div class="content">
+    <div class="user-profile">
+      <h2 style="text-align: center;">注册</h2>
+      <hr>
+      <form  method='post' action="/account/register" class="form-horizontal" id="commentForm">
+        {% csrf_token %}  
+        <fieldset class="form-group">
+          <label for="exampleInputEmail1">用户名</label>
+          <input style="display:none"><!-- for disable autocomplete on chrome -->
+          <input type="text" class="form-control"  name="username" placeholder="Enter username" autocomplete="off" required>
+          <small class="text-muted">至少4位，请勿使用特殊字符</small>
+        </fieldset>
+        {% if illegal_username %}
+        <div class="alert alert-danger" role="alert">
+         用户名不合法
+       </div>
+       {% endif %}
+       {% if exist_username %}
+       <div class="alert alert-danger" role="alert">
+         用户名已被注册
+       </div>
+       {% endif %}
+       <fieldset class="form-group">
+        <label for="exampleInputEmail1" > 邮箱</label>
+        <input style="display:none"><!-- for disable autocomplete on chrome -->
+        <input type="email" class="form-control" name="email" placeholder="Enter email" autocomplete="off" required>
+        <small class="text-muted">仅用于注册，自己可见</small>
+      </fieldset>
+      <fieldset class="form-group">
+
+        <label for="exampleInputPassword1">输入密码</label>
+        <input style="display:none"><!-- for disable autocomplete on chrome -->
+        <input type="password"  name="password" class="form-control"  placeholder="Password" autocomplete="off" required >
+        <small class="text-muted">至少6位</small>
+      </fieldset>
+      {% if illegal_password %}
+      <div class="alert alert-danger" role="alert">
+       密码不合法
+     </div>
+     {% endif %}
+     <fieldset class="form-group">
+      <label for="exampleInputPassword1">确认密码</label>
+      <input style="display:none"><!-- for disable autocomplete on chrome -->
+      <input type="password" class="form-control"  name="password1"  placeholder="Password again" autocomplete="off" required>
+    </fieldset>
+    
+    <br>
+    <button type="submit" class="btn btn-primary">Register</button>
+  </form>
+  <div>
+    
+    {% if exist_email %}
+    <div class="alert alert-danger" role="alert">
+     Email已被使用
+   </div>
+   {% endif %}
+
+ </div>
+</div>
+</div>
 
 </body>
 </html>
+

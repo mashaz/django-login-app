@@ -1,7 +1,7 @@
 #coding=utf-8
 from django.shortcuts import render,render_to_response
 from django.http import HttpResponseRedirect
-from login.models import User
+from users.models import User
 from django import forms
 from django.http import HttpResponse
 
@@ -23,12 +23,12 @@ def login(request):
             user = User.objects.filter(username__exact = username,password__exact = password)
             if user:
                 request.session['username'] = username
-                return HttpResponseRedirect('/magnet')  # 登录成功返回页面
+                return HttpResponseRedirect('/')
             else:
                 user_by_email = User.objects.filter(email__exact = username,password__exact = password)
                 if user_by_email:
                     request.session['username'] = user_by_email[0].username
-                    return HttpResponseRedirect('/magnet') # 登录成功返回页面
+                    return HttpResponseRedirect('/')
                 else:
                     context = {}
                     context['invid'] = 'invid'
@@ -41,16 +41,41 @@ def logout(request):
         del request.session['username']
     except KeyError:
         pass
-    return HttpResponseRedirect('/magnet')
+    return HttpResponseRedirect('/')
 
-
+def is_username_legal(username):
+    if len(username) < 4 :
+        return 0
+    elif ' ' in username:
+        return 0
+    elif '.' in username:
+        return 0
+    elif ',' in username:
+        return 0
+    elif '-' in username:
+        return 0
+    else:
+        return 1
+def is_password_legal(password):
+    if len(password) < 6 :
+        return 0
+    else:
+        return 1
 def register(request):
     if request.method == 'POST':
+        context = {}
         username = request.POST['username'].encode('utf-8')
+        if is_username_legal(username) == 0:
+            context['illegal_username'] = 1
+            return render(request,'register.html',context)
         password = request.POST['password'].encode('utf-8')
+        if is_password_legal(password) == 0:
+            context['illegal_password'] = 1
+            return render(request,'register.html',context)
         email = request.POST['email'].encode('utf-8')
         user = User.objects.filter(username=username)
-        context = {}
+
+        
         if len(user)==0:
             user = User()
             user.username = username
@@ -78,3 +103,5 @@ def register(request):
 
     else:
         return render_to_response('register.html')
+def info(request):
+    return render(request,'userinfo.html')
