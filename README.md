@@ -34,4 +34,6 @@ url格式
 * /account/info
 
 user表
-id username password email
+id | username | password | email | ...
+-- | -------- | -------- | ----- | ---
+
