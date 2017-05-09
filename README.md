@@ -27,13 +27,13 @@ TEMPLATES = [
 
 ```
 
-url格式 
+### url格式 
 * /account/login
 * /account/logout
 * /account/register
 * /account/info
 
-user表
-id | username | password | email | ...
--- | -------- | -------- | ----- | ---
+### user表
+| id | username | password | email | ... |
+
 
